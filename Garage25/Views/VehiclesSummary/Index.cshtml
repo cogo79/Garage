@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Garage25.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Garage 2.5";
+}
+
+<h2></h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3>Summary Vehicle List</h3>
+        @Html.ActionLink("Create New Vehicle", "Create")
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                Vehicle Type: @Html.DropDownList("VehicleTypeId", ViewData["VehicleTypeId"] as SelectList) Registration No.: @Html.TextBox("RegNo")   <input type="submit" value="Filter" class="btn btn-default" />
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Owner.Fname)*@
+            First Name
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.VehicleType.TypeDes)*@
+            Type Description
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.RegNo)*@
+            Registration No.
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>*@
+        <th></th>
+    </tr>
+
+
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owner.Fname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleType.TypeDes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegNo)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Brand)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VehicleId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VehicleId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VehicleId })
+        </td>
+    </tr>
+}
+
+</table>

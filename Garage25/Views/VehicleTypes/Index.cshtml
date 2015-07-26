@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Garage25.Models.VehicleType>
+
+@{
+    ViewBag.Title = "Garage 2.5";
+}
+
+<h3>Vehicle Types List</h3>
+
+<p>
+    @Html.ActionLink("Create New Vehicle Type", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Type Description
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeDes)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VehicleTypeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VehicleTypeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VehicleTypeId })
+        </td>
+    </tr>
+}
+
+</table>

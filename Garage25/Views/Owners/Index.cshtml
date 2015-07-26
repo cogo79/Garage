@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Garage25.Models.Owner>
+
+@{
+    ViewBag.Title = "Garage 2.5";
+}
+
+<h3>Owners List</h3>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            First Name
+        </th>
+        <th>
+            Last Name
+        </th>
+        <th>
+            Telephone No.
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelNo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OwnerId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OwnerId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OwnerId })
+        </td>
+    </tr>
+}
+
+</table>
