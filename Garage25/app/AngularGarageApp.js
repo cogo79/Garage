@@ -1,0 +1,1 @@
+﻿var angularGarageApp = angular.module('angularGarageApp', []);

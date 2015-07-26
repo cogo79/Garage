@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Garage25.DataAccessLayer;
 using Garage25.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Garage25.Controllers
 {
@@ -21,9 +23,32 @@ namespace Garage25.Controllers
         //    var vehicles = db.Vehicles.Include(v => v.Owner).Include(v => v.VehicleType);
         //    return View(vehicles.ToList());
         //}
+        public ActionResult GetAllVehicles()
+        {
+            var vehicles = from v in db.Vehicles
+                   select v;
 
+            return GetJsonContentResult(vehicles);
+        }
 
+        public ActionResult GetVehicleTypes()
+        {
+            var vehicleTypes = from vt in db.VehicleTypes
+                               select vt;
+            return GetJsonContentResult(vehicleTypes);
+        }
 
+        public ContentResult GetJsonContentResult(object data)
+        {
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            var jsonResult = new ContentResult
+            {
+                Content = JsonConvert.SerializeObject(data, camelCaseFormatter),
+                ContentType = "application/json"
+            };
+            return jsonResult;
+        }
 
         public ActionResult Index(string RegNo, int? VehicleTypeId)
         {
@@ -55,9 +80,6 @@ namespace Garage25.Controllers
             SelectList list;
 
             list = new SelectList(vl, "VehicleTypeId", "TypeDes");
-
-
-
 
             ViewBag.VehicleTypeId = list;
 

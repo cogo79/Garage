@@ -4,83 +4,77 @@
     ViewBag.Title = "Garage 2.5";
 }
 
-<h3></h3>
 
-<p>
+<div ng-controller="VehiclesController">
 
+    <h3></h3>
 
-    @using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h3>Detailed Vehicle List</h3>
-        @Html.ActionLink("Create New Vehicle", "Create")
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <p>
+        <div class="form-horizontal">
+            <h3>Detailed Vehicle List</h3>
+            @Html.ActionLink("Create New Vehicle", "Create")
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            
-            <div class="col-md-10">
-                 Vehicle Type: @Html.DropDownList("VehicleTypeId", ViewBag.VehicleTypeId as SelectList) Registration No.: @Html.TextBox("RegNo")   <input type="submit" value="Filter" class="btn btn-default" />
-                
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    Vehicle Type: <select class="selectVehicleType" ng-model="search.vehicleTypeId">
+                        <option value="">All</option>
+                        <option ng-repeat="vehicleType in vehicleTypes" value="{{vehicleType.vehicleTypeId}}">{{vehicleType.typeDes}}</option>
+
+                    </select>
+                    Registration No.: <input type="text" value="" ng-model="search.regNo" />
+                </div>
             </div>
-
         </div>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Type Description
+            </th>
+            <th>
+                Registration No.
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th></th>
+        </tr>
 
-    </div>
-}
+        <tr ng-repeat="vehicle in vehicles | filter:search:strict">
+                <td>
+                    {{vehicle.owner.fname}}
+                </td>
+                <td>
+                    {{vehicle.vehicleType.typeDes}}
+                </td>
+                <td>
+                    {{vehicle.regNo}}
+                </td>
+                <td>
+                    {{vehicle.brand}}
+                    @*
+                    @Html.DisplayFor(modelItem => item.Brand)
+                        *@
+                </td>
+                <td>
+                    {{vehicle.color}}
+                    
+                </td>
+                <td>
+                    <a href="/Vehicles/Edit/{{vehicle.vehicleId}}">Edit</a> |
+                    <a href="/Vehicles/Details/{{vehicle.vehicleId}}">Details</a> |
+                    <a href="/Vehicles/Delete/{{vehicle.vehicleId}}">Delete</a>
+                </td>
+            </tr>
 
-
- 
-</p>
-
-
-   
-
-<table class="table">
-    <tr>
-        <th>
-           First Name
-        </th>
-        <th>
-            Type Description
-        </th>
-        <th>
-            Registration No.
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Brand)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Color)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Owner.Fname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VehicleType.TypeDes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Brand)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.VehicleId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.VehicleId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.VehicleId })
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+</div>

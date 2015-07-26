@@ -6,8 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
 </head>
-<body>
+<body ng-app="angularGarageApp">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -20,11 +21,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                   <li>@Html.ActionLink("Vehicle Summary", "Index", "VehiclesSummary")</li>
+                    <li>@Html.ActionLink("Vehicle Summary", "Index", "VehiclesSummary")</li>
                     <li>@Html.ActionLink("Detail List", "Index", "Vehicles")</li>
                     <li>@Html.ActionLink("Owners", "Index", "Owners")</li>
                     <li>@Html.ActionLink("Vehicle types", "Index", "VehicleTypes")</li>
-                     <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </div>
